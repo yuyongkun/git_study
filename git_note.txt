@@ -1,0 +1,39 @@
+ls -a 查看文件
+git branch:查看当前分支
+
+git add 添加到缓存区(git add .:添加所有改动文件或者新建文件到暂存区)
+
+git commit 提交到版本库
+
+rm filename:删除文件（操作还未添加到暂存区）
+git rm filename:删除文件（操作已经添加到暂存区）
+
+git log(git log --pretty=oneline):查看提交历史（可以回到过去）
+git reflog:查看命令历史（可以回到未来）
+
+git diff filename:比较工作区和暂存区
+git diff --cached filename:比较暂存区和版本库
+git diff commit_id:比较工作区和指定版本库
+gif diff HEAD filename:比较工作区与最新版本库
+
+git checkout --filename:
+1，如果已经添加到暂存区，又做了修改，撤销修改就回到添加暂存区的状态。
+2，如果没有添加到暂存区，撤销修改就回到和版本库一样的状态。
+
+
+
+git reset --hard HEAD:回到当前最新版本库（丢掉工作区和暂存区的修改）
+git reset --hard commit_id:回到指定版本库（丢掉工作区和暂存区的修改）
+
+使用远程仓库：
+
+1，创建ssh key。
+由于本地git仓库和github仓库之间的传输时通过ssh加密的，所以需要先生成ssh key.
+使用命令：ssh-keygen -t rsa -C 'yuyongkun@qq.com'
+成功之后.ssh目录下面会生成两个文件id_rsa和id_rsa.pub,id_rsa是私钥，需保密，id_rsa.pub是公钥，可以告诉别人。
+2,添加远程仓库
+git remote add origin git@github.com:yuyongkun/study.git
+3,关联并推送到远程仓库
+git push -u origin master
+
+
