@@ -1,5 +1,6 @@
 ﻿ls -a 查看文件
 git branch:查看当前分支
+git branch -vv:查看本地各个分支对应远程分支
 
 git add 添加到缓存区(git add .:添加所有改动文件或者新建文件到暂存区)
 
