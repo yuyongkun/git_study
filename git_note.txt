@@ -45,5 +45,5 @@ git分支系统：
 创建并切换到指定分支：git checkout -b dev
 合并分支：git merge dev（合并dev分支到当前分支）
 
-
+查看远程仓库：git remote -v
 
