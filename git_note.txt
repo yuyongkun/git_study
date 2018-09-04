@@ -1,68 +1,77 @@
-﻿ls -a 查看文件
-git branch:查看当前分支
-git branch -vv:查看本地各个分支对应远程分支
-创建分支：git branch branchname
-切换到当前分支：git checkout branchname
-删除本地分支：git branch -d branchname
-删除远程分支：git push origin --delete branchname
+﻿-----------------------------------
 
-git add 添加到缓存区(git add .:添加所有改动文件或者新建文件到暂存区)
+Git学习笔记
+-----------------------------------    
+1，使用git有三个概念必须理解：工作区、暂存区、版本库
+工作区：就是我们电脑上看到的目录
+版本库：工作区有一个隐藏的目录.git,这个就是git的版本库，版本库中有很多东西，包括stage（暂存区），还有git为我们创建的第一个分支master以及指向master的指针HEAD
 
-git commit 提交到版本库
+git add ：将工作区的代码添加到暂存区
+git commit：将暂存区的代码提交到版本库
+git rm:从版本库删除文件 
 
-rm filename:删除文件（操作还未添加到暂存区）
-git rm filename:删除文件（操作已经添加到暂存区）
+2，历史记录：如果要想查看提交过的历史记录可以使用下面两个命令
 
-git log(git log --pretty=oneline):查看提交历史（可以回到过去）
+git log:查看提交历史【git log --pretty=oneline：可以将提交信息一行展示】
 git reflog:查看命令历史（可以回到未来）
+git log --graph：可以看到分支合并图
 
+3，版本回退：要想把内容还原到提交的某个历史记录，可以使用下面命令【HEAD:当前版本，HEAD^:上一个版本...以此类推】
+git reset --hard HEAD:可以回到当前版本库的未修改状态（丢掉工作区和暂存区的修改）
+git reset --hard commit_id:可以回到指定版本库的未修改状态（丢掉工作区和暂存区的修改）
+
+4，撤销修改
+git checkout -- filename:
+1)，如果已经添加到暂存区，又做了修改，撤销修改就回到添加暂存区的状态。
+2)，如果没有添加到暂存区，撤销修改就回到和版本库一样的状态。
+
+4，创建分支：在实际项目开发中我们经常在创建的分支上开发，开发完成之后再合并到主分支上，这样做既不影响其它同事的开发又能保证自己的代码安全。
+git branch dev：创建分支dev
+git checkout dev:切换到dev分支
+上面两条命令合并成一条就是：git checkout -b dev
+git branch -d dev:删除分支dev
+git push origin --delete dev:删除远程dev分支
+git merge dev:帮dev分支合并到当前分支
+git branch:查看本地分支既当前分支
+git branch -vv:查看本地分支对应的远程分支
+
+5，比较区别：如果自己工作区代码做了修改想看看做了哪些修改或者想要看看工作区和某个版本库的区别，可以使用下面命令：
 git diff filename:比较工作区和暂存区
 git diff --cached filename:比较暂存区和版本库
 git diff commit_id:比较工作区和指定版本库
 gif diff HEAD filename:比较工作区与最新版本库
 
-git checkout -- filename:
-1，如果已经添加到暂存区，又做了修改，撤销修改就回到添加暂存区的状态。
-2，如果没有添加到暂存区，撤销修改就回到和版本库一样的状态。
 
+6，git tag：打标签主要对某一时间点的版本做标记，常用于版本发布。
 
-//HEAD:当前版本，HEAD^:上一个版本
-git reset --hard HEAD:回到当前最新版本库（丢掉工作区和暂存区的修改）
-git reset --hard commit_id:回到指定版本库（丢掉工作区和暂存区的修改）
+7，更新代码
+git pull：更新远程代码并且与当前代码合并
+git fetch：更新远程代码
+git merge：合并代码到当前分支
 
+git pull==git fetch + git merge
 
-git pull、git fetch区别：git pull是git fetch和git merge两个步骤的结合
-
+//实例：
 git fetch origin master:tmp //在本地新建一个temp分支，并将远程origin仓库的master分支代码下载到本地temp分支
 git diff tmp //来比较本地代码与刚刚从远程下载下来的代码的区别
 git merge tmp //合并temp分支到本地的master分支
 git branch -d temp //如果不想保留temp分支 可以用这步删除
-使用远程仓库：
 
-1，创建ssh key。
-由于本地git仓库和github仓库之间的传输时通过ssh加密的，所以需要先生成ssh key.
-使用命令：ssh-keygen -t rsa -C 'yuyongkun@qq.com'
-成功之后.ssh目录下面会生成两个文件id_rsa和id_rsa.pub,id_rsa是私钥，需保密，id_rsa.pub是公钥，可以告诉别人。
-2,添加远程仓库
+
+8，远程仓库：【查看远程仓库命令：git remote -v】
+
+在使用远程仓库之前需要在github上注册账号，由于你本地git仓库和github远程仓库之间的传输是通过SSH加密的，所以需要如下设置：
+
+1)创建ssh key。
+使用命令：ssh-keygen -t rsa -C 'yuyongkun4519@qq.com'
+成功之后.ssh目录下面会生成两个文件id_rsa和id_rsa.pub其中id_rsa是私钥，需保密，id_rsa.pub是公钥，可以告诉别人。
+2)添加远程仓库
 git remote add origin git@github.com:yuyongkun/study.git
-3,关联并推送到远程仓库
+3)关联并推送到远程仓库
 git push -u origin master
 
 
-git分支系统：
-创建分支：git branch dev
-删除分支：git branch -d dev
-切换分支：git checkout dev
-创建并切换到指定分支：git checkout -b dev
-合并分支：git merge dev（合并dev分支到当前分支）
-
-查看远程仓库：git remote -v
-
-
-
- git tag:打标签主要对某一时间点的版本做标记，常用于版本发布。
-
-常见问题：
+9，常见问题：
 Git远程仓库地址变更本地如何修改？
 
 以下均以项目git_test为例： 
