@@ -1,4 +1,5 @@
-﻿-----------------------------------
+﻿qyy
+-----------------------------------
 
 Git学习笔记
 -----------------------------------    
@@ -25,7 +26,9 @@ git checkout -- filename:
 1)，如果已经添加到暂存区，又做了修改，撤销修改就回到添加暂存区的状态。
 2)，如果没有添加到暂存区，撤销修改就回到和版本库一样的状态。
 
-4，创建分支：在实际项目开发中我们经常在创建的分支上开发，开发完成之后再合并到主分支上，这样做既不影响其它同事的开发又能保证自己的代码安全。
+4，创建分支：在实际项目开发中我们经常在创建的分支上开发，开发完成之后再合并到主分支上，
+这样做既不影响其它同事的开发又能保证自己的代码安全。
+
 git branch dev：创建分支dev
 git checkout dev:切换到dev分支
 上面两条命令合并成一条就是：git checkout -b dev
@@ -33,7 +36,7 @@ git branch -d dev:删除分支dev
 git push origin --delete dev:删除远程dev分支
 git merge dev:帮dev分支合并到当前分支
 git branch:查看本地分支既当前分支
-git branch -vv:查看本地分支对应的远程分支
+git branch -va:可以查看本地+远程分支列表
 
 5，比较区别：如果自己工作区代码做了修改想看看做了哪些修改或者想要看看工作区和某个版本库的区别，可以使用下面命令：
 git diff filename:比较工作区和暂存区
@@ -43,6 +46,15 @@ gif diff HEAD filename:比较工作区与最新版本库
 
 
 6，git tag：打标签主要对某一时间点的版本做标记，常用于版本发布。
+创建标签：git tag v1.0
+创建带有说明的标签：git tag -a v0.1 -m "version 0.1 released"
+删除标签：git tag -d v0.1
+查看标签：git tag
+查看标签详细信息：git show <tagname>
+推送标签到远程：git push origin v1.0【推送所有标签：git push origin --tags】
+
+删除远程标签：git push origin :refs/tags/<tagname>【要想删除远程标签必须先删除本地标签】
+
 
 7，更新代码
 git pull：更新远程代码并且与当前代码合并
@@ -58,7 +70,7 @@ git merge tmp //合并temp分支到本地的master分支
 git branch -d temp //如果不想保留temp分支 可以用这步删除
 
 
-8，远程仓库：【查看远程仓库命令：git remote -v】
+8，远程仓库：【查看远程仓库地址命令：git remote -v】
 
 在使用远程仓库之前需要在github上注册账号，由于你本地git仓库和github远程仓库之间的传输是通过SSH加密的，所以需要如下设置：
 
