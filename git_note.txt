@@ -1,4 +1,8 @@
 ﻿qyy
+﻿添加test1
+添加test1-2
+﻿添加test3
+添加test6
 -----------------------------------
 
 Git学习笔记
@@ -37,6 +41,9 @@ git push origin --delete dev:删除远程dev分支
 git merge dev:帮dev分支合并到当前分支
 git branch:查看本地分支既当前分支
 git branch -va:可以查看本地+远程分支列表
+
+git push origin :test//删除远程分支test
+git branch -a:查看远程有几个分支
 
 5，比较区别：如果自己工作区代码做了修改想看看做了哪些修改或者想要看看工作区和某个版本库的区别，可以使用下面命令：
 git diff filename:比较工作区和暂存区
